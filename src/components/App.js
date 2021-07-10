@@ -1,5 +1,6 @@
 import React from 'react';
-import login from './login'
+import Login from './login';
+import createAccount from './createAccount';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
@@ -7,9 +8,9 @@ function App() {
             <Router>
                 <Switch>
                     {/* <Route exact path="/" component={MainPage} /> */}
-                    <Route exact path="/" component={login} />
-                    {/* <Route exact path="/newAccount" component={createAccount} />
-                    <Route exact path="/add" component={addBookmark} /> */}
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/newAccount" component={createAccount} />
+                    {/* <Route exact path="/add" component={addBookmark} /> */}
                 </Switch>
             </Router>
     )
