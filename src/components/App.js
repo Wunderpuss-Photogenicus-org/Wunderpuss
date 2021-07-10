@@ -1,18 +1,18 @@
 import React from 'react';
-import { render } from 'react-dom';
+import login from './login'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-class App extends Component {
-    render() {
-        return(
+function App() {
+    return(
             <Router>
                 <Switch>
-                    {/* <Route exact path="/" component={MainPage} />
-                    <Route exact path="/Favorites" component={Favorites} />
-                    <Route exact path="/Featured" component={Featured} /> */}
+                    {/* <Route exact path="/" component={MainPage} /> */}
+                    <Route exact path="/" component={login} />
+                    {/* <Route exact path="/newAccount" component={createAccount} />
+                    <Route exact path="/add" component={addBookmark} /> */}
                 </Switch>
             </Router>
-        )
-    }
+    )
 }
 
 export default App;
