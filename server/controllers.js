@@ -9,7 +9,7 @@ websitesController.getWebsites = (req,res,next)=>{
     db.query(text)
     //then get the result
     .then((data)=>{
-        
+        console.log()
         res.locals.websites = data.rows
         //return next
         return next()
@@ -48,7 +48,7 @@ websitesController.createAccount = (req, res, next)=>{
     const {username, firstname, lastname, date, password} = req.body;
     const list = [username, firstname, lastname, date, password]
     //delcare a variable assign it our query string to post data
-    const text = 'INSERT INTO users (username, firstname, lastname, date) values($1, $2, $3, $4, $5)'
+    const text = 'INSERT INTO users (username, firstname, lastname, date, password) values($1, $2, $3, $4, $5)'
     //call the db function that takes in the text variable as the first param, req.body as the second param in array form
     db.query(text, list)
      //get the data using a promise
