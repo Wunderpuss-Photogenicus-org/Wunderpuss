@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const routes = require('./routes')
+const routes = require('./routes');
 
 /**
  * handle parsing request body

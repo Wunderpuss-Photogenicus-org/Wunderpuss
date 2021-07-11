@@ -1,0 +1,29 @@
+TABLE public.people (
+	"users_id" PRIMARY KEY ("_id"),
+	"username" varchar,
+    "firstname" varchar,
+    "lastname" varchar,
+    "date" date,
+    "password", varchar
+)
+ TABLE public.people (
+	"websites_id" PRIMARY KEY ("_id"),
+	"websitename" varchar,
+    "picsrc" varchar,
+    "user_id" varchar,
+    "description" varchar,
+    "url", varchar
+)
+ TABLE public.people (
+	"comments_id" PRIMARY KEY ("_id"),
+	"cdescription" varchar,
+    "user_id" varchar,
+    "webiste_id" varchar,
+    "date" date,
+)
+ TABLE public.people (
+	"ratings_id" PRIMARY KEY ("_id"),
+	"rating" varchar,
+    "user_id" varchar,
+    "web_id" varchar,
+)
