@@ -8,7 +8,7 @@ function App() {
     return(
             <Router>
                 <Switch>
-                    {/* <Route exact path="/" component={MainPage} /> */}
+                    <Route exact path="/" component={MainPage} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/newAccount" component={createAccount} />
                     {/* <Route exact path="/add" component={addBookmark} /> */}
