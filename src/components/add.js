@@ -14,8 +14,14 @@ export default function AddBookmark() {
             // checks if any fields are missing 
             setmissingInfo(true);
         } else {
+<<<<<<< HEAD
             // sends websiteLink, websiteName, description, picture link to server 
             fetch('/add', {
+=======
+          // sends websiteLink, websiteName, description, picture link to server 
+
+          fetch('/add', {
+>>>>>>> dev
                 mode: 'cors',
                 method: 'POST',
                 headers: {
