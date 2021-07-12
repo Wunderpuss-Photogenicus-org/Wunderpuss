@@ -9,19 +9,17 @@ export default function Login() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        if (!username || !password) {
-            setmissingInfo(true);
-        } else {
-            fetch('http://localhost:8080/login', {
+        
+        fetch('http://localhost:3000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({username, password})
             })
-            .then(data => data.json());
+            .then(data => console.log(data));
             return <Redirect to="/home" />
-        }
+        
     }
     return(
         <div className="login">

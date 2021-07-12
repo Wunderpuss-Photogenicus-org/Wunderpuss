@@ -1,5 +1,6 @@
 const db = require('./models');
-
+const express = require('express');
+const app = express();
 const websitesController = {};
 
 websitesController.getWebsites = (req,res,next)=>{
@@ -63,22 +64,65 @@ websitesController.createAccount = (req, res, next)=>{
     })
 }
 websitesController.logging = (req, res, next) =>{
+  
     const {username, password} = req.body
     const list = [username, password]
-    const text = 'SELECT * FROM users WHERE username = $1 AND password = '
+    const text = 'SELECT * FROM users WHERE username = $1 AND password =$2 '
         db.query(text, list)
         .then ((data)=>{  
-            console.log(data)
+            app.locals.cool = data.rows[0]['users_id'];
+            console.log(app.locals.cool)
             if (data.rows[0].username === username && data.rows[0] && data.rows[0].password === password) {
                 // req.session.loggedin = true;
                 // req.session.username = username;
-                res.redirect('/');
-                res.next();
+               
+                next()
             }        
         }).catch(err=>{
             console.log(err)
             return next()
         })
     
+}
+websitesController.getWebsitesLogin = (req, res, next)=>{
+      //declare a variable assgin it our query string
+      const text = 'SELECT * FROM websites'
+      console.log('hello', app.locals.cool)
+        req.params.id = app.locals.cool
+       
+      //call the method from models called db.query, inside the method it will take the query str
+      db.query(text)
+      //then get the result
+      .then((data)=>{
+          console.log()
+          res.locals.websites = data.rows
+          //return next
+          return next()
+           //catch error
+      }).catch((err)=>{
+          console.log(err);
+          //return next
+          return next(err)
+      })
+}
+websitesController.addBookmark = (req, res, next)=>{
+        //request the body from the input fields
+        console.log(req.app.locals.id)
+        const {websitename, picsrc, url, description,username} = req.body;
+        const list = [websitename, picsrc, url, description, username]
+        //delcare a variable assign it our query string to post data
+        const text = 'INSERT INTO websites (websitename, picsrc, url,description, user_id) values($1, $2, $3, $4, (select id from users where username= $5))'
+        //call the db function that takes in the text variable as the first param, req.body as the second param in array form
+        db.query(text, list)
+         //get the data using a promise
+        .then((data)=>{
+            console.log(data);
+            res.json(data);
+            return next();
+            //catch error
+        }).catch((err)=>{
+            console.log(err)
+            return next(err)
+        })
 }
 module.exports = websitesController;

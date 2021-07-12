@@ -6,6 +6,7 @@ const routes = require('./routes');
 /**
  * handle parsing request body
  */
+
  app.use(express.json());
  app.use(express.urlencoded({ extended: true }));
 //only need app.get route, serving everything on the front end through localhost8080
