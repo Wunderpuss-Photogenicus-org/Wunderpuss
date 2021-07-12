@@ -14,6 +14,8 @@ router.post('/newAccount', controllers.createAccount, (req, res)=>{
     res.status(200).json({});
 })
 router.post('/login', controllers.logging, (req, res)=>{
-    res.redirect('/')
+    // res.redirect('/') 
+    // without .end(), fetch request continues waiting 
+    res.status(200).end();
 })
 module.exports = router

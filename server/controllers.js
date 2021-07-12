@@ -64,17 +64,18 @@ websitesController.createAccount = (req, res, next)=>{
 }
 websitesController.logging = (req, res, next) =>{
     const {username, password} = req.body
-    console.log('res.localss', {...res.locals});
+    console.log('this is req', req.body);
     const list = [username, password]
-    const text = 'SELECT * FROM users WHERE username = $1 AND password = '
+    const text = 'SELECT * FROM users WHERE username = $1 AND password = $2'
         db.query(text, list)
         .then ((data)=>{  
-            console.log(data)
+            console.log('dataaaa',data)
             if (data.rows[0].username === username && data.rows[0] && data.rows[0].password === password) {
                 // req.session.loggedin = true;
                 // req.session.username = username;
-                res.redirect('/');
-                res.next();
+                // res.redirect('/');
+                // changed to return next() from res.next()
+                return next();
             }        
         }).catch(err=>{
             console.log(err)
