@@ -8,8 +8,12 @@ const router = express.Router();
 router.get('/', controllers.getWebsites, (req, res) => {
     res.status(200).json([...res.locals.websites])
 })
+<<<<<<< HEAD
+router.get('/search', controllers.getOneWebsite, (req, res)=>{
+=======
 // when user inputs a search request in the search bar
 router.get('/', controllers.getOneWebsite ,(req, res)=>{
+>>>>>>> dev
     res.status(200).json([...res.locals.singleWeb])
 })
 // when user clicks create account, will direct them to get new account
