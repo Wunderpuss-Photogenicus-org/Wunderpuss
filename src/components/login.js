@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import CreateAccount from './createAccount';
 
 export default function Login() {
@@ -7,24 +7,30 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [missingInfo, setmissingInfo] = useState(false)
 
+    const history = useHistory(); 
+
     const handleSubmit = event => {
         event.preventDefault();
+        const frontBody = {username, password};
         if (!username || !password) {
             setmissingInfo(true);
         } else {
-            console.log('body', JSON.stringify(frontBody));
+            console.log('body', JSON.stringify({"username": username, "password":password}));
             fetch('/login', {
-                mode: 'no-cors',
                 method: 'POST',
+                mode: 'cors', 
                 headers: {
-                    'Content-Type': 'Application/JSON',
+                'Content-Type': 'application/json'              
                 },
                 body: JSON.stringify(frontBody)
             })
-            .then(resp => resp.json())
-            .then(data => {console.log('this is data', data)})
+            // .then(resp => resp.json())
+            .then(data => {
+                console.log("data", data)
+                history.push("/")
+            })
             .catch(err => console.log('this is err', err));
-            return <Redirect to="/home" />
+            // return <Redirect to="/home" />
         }
     }
     return(
@@ -46,5 +52,6 @@ export default function Login() {
                 {missingInfo ? <div>Please fill in all fields</div>:null}
             </form>
         </div>
+
     );
 }

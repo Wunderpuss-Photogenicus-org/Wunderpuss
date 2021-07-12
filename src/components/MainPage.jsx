@@ -50,7 +50,7 @@ export function MainPage() {
         <Link to="/login">Login</Link>
         <Link to="/newAccount">Join</Link>
       </div>
-      <Link to="/login">Add a Bookmark</Link>
+      <Link to="/add">Add a Bookmark</Link>
       <div className="search-input">
       <form onSubmit={handleSearch}>
                             <input 
