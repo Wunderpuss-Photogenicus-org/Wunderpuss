@@ -9,6 +9,7 @@ export default function Login() {
 
     const handleSubmit = event => {
         event.preventDefault();
+        const frontBody = {username, password};
         if (!username || !password) {
             setmissingInfo(true);
         } else {
@@ -46,5 +47,6 @@ export default function Login() {
                 {missingInfo ? <div>Please fill in all fields</div>:null}
             </form>
         </div>
+
     );
 }
