@@ -3,8 +3,8 @@ import { NavLink, Redirect } from 'react-router-dom';
 import CreateAccount from './createAccount';
 
 export default function Login() {
-    const [username, setUserName] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [missingInfo, setmissingInfo] = useState(false)
 
     const handleSubmit = event => {
@@ -12,14 +12,18 @@ export default function Login() {
         if (!username || !password) {
             setmissingInfo(true);
         } else {
-            fetch('http://localhost:8080/login', {
+            console.log('body', JSON.stringify(frontBody));
+            fetch('/login', {
+                mode: 'no-cors',
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'Application/JSON',
                 },
-                body: JSON.stringify({username, password})
+                body: JSON.stringify(frontBody)
             })
-            .then(data => data.json());
+            .then(resp => resp.json())
+            .then(data => {console.log('this is data', data)})
+            .catch(err => console.log('this is err', err));
             return <Redirect to="/home" />
         }
     }
@@ -29,11 +33,11 @@ export default function Login() {
             <form onSubmit={handleSubmit}> 
                 <label>
                     <p>Username</p>
-                    <input type="text" onChange={event => setUserName(event.target.value)}/>
+                    <input type="text" name="username" onChange={event => setUsername(event.target.value)}/>
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type="password" onChange={event => setPassword(event.target.value)}/>
+                    <input type="password" name="password" onChange={event => setPassword(event.target.value)}/>
                 </label>
                 <div className="loginButton">
                     <button type="submit">Login</button>
@@ -42,6 +46,5 @@ export default function Login() {
                 {missingInfo ? <div>Please fill in all fields</div>:null}
             </form>
         </div>
-
     );
 }
