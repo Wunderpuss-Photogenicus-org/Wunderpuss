@@ -112,6 +112,20 @@ websitesController.getWebsiteInfo = (req, res, next) => {
 websitesController.logging = (req, res, next) =>{
   
     const {username, password} = req.body
+<<<<<<< HEAD
+    console.log('this is req', req.body);
+    const list = [username, password]
+    const text = 'SELECT * FROM users WHERE username = $1 AND password = $2'
+        db.query(text, list)
+        .then ((data)=>{  
+            console.log('dataaaa',data)
+            if (data.rows[0].username === username && data.rows[0] && data.rows[0].password === password) {
+                // req.session.loggedin = true;
+                // req.session.username = username;
+                // res.redirect('/');
+                // changed to return next() from res.next()
+                return next();
+=======
     const list = [username, password]
     const text = 'SELECT * FROM users WHERE username = $1 AND password =$2 '
         db.query(text, list)
@@ -123,6 +137,7 @@ websitesController.logging = (req, res, next) =>{
                 // req.session.username = username;
                
                  return next();
+>>>>>>> da442f854ade030dbd0d642b88ec7f548ebdbaa2
             }        
         }).catch(err=>{
             console.log(err)
