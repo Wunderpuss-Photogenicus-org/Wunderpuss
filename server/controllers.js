@@ -172,21 +172,21 @@ websitesController.addBookmark = (req, res, next)=>{
 }
 
 websitesController.postComment = (req, res, next) => {
-  const allComments = 'SELECT cdescription FROM comments WHERE website_id=$1';
-  //call the method from models called db.query, inside the method it will take the query str
-  db.query(allComments)
-    //then get the result
-    .then((data) => {
-      res.locals.comments = data.rows;
-      console.log(res.locals.comments);
-      //return next
-      return next();
-      //catch error
-    })
-    .catch((err) => {
-      console.log(err);
-      //return next
-      return next(err);
-    });
+  //request the body from the input fields
+  const {comment} = req.body;
+  const postedComment = [comment]
+  //delcare a variable assign it our query string to post data
+  const addedComment = 'INSERT INTO comments (cdescription) WHERE website_id = $1';
+
+  dq.query(addedComment, postedComment)
+  // then get the data using a promise
+  .then((data) => {
+    console.log(data);
+    return next();
+  }).catch((err) => {
+    console.log(err);
+    return next(error);
+  })
+
 }
 module.exports = websitesController;
