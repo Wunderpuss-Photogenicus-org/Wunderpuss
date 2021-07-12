@@ -18,6 +18,8 @@ router.post('/newAccount', controllers.createAccount, (req, res)=>{
 })
 // when user clicks log in, and has a successful log in, will redirect to home page
 router.post('/login', controllers.logging, (req, res)=>{
+    // res.redirect('/') 
+    // without .end(), fetch request continues waiting   
     res.status(200).end();
 })
 

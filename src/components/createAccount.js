@@ -14,7 +14,7 @@ export default function CreateAccount() {
             setmissingInfo(true);
         } else {
             fetch('http://localhost:3000/newAccount', {
-                mode: 'no-cors',
+                mode: 'cors',
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
