@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Redirect, useHistory } from 'react-router-dom';
-import CreateAccount from './createAccount';
+import React, { useState } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [missingInfo, setmissingInfo] = useState(false)
+    const [wrongInfo, setwrongInfo] = useState(false)
 
     const history = useHistory(); 
 
@@ -13,9 +13,10 @@ export default function Login() {
         event.preventDefault();
         const frontBody = {username, password};
         if (!username || !password) {
+            // checks if any fields are missing 
             setmissingInfo(true);
         } else {
-            console.log('body', JSON.stringify({"username": username, "password":password}));
+            // sends username and password to server 
             fetch('/login', {
                 method: 'POST',
                 mode: 'cors', 
@@ -24,13 +25,17 @@ export default function Login() {
                 },
                 body: JSON.stringify(frontBody)
             })
-            // .then(resp => resp.json())
-            .then(data => {
-                console.log("data", data)
-                history.push("/")
+            .then((res) => {
+                if (!res.ok) {
+                    // if the username/password is incorrect
+                    setwrongInfo(true);
+                } else {
+                    console.log("data")
+                    // redirects to homepage 
+                    history.push("/")
+                }
             })
             .catch(err => console.log('this is err', err));
-            // return <Redirect to="/home" />
         }
     }
     return(
@@ -50,6 +55,7 @@ export default function Login() {
                 </div>
                 <div className="noAccount">Don't have an account? <NavLink to="/newAccount">Create Account</NavLink></div>
                 {missingInfo ? <div>Please fill in all fields</div>:null}
+                {wrongInfo ? <div>Please enter correct information</div>:null}
             </form>
         </div>
 

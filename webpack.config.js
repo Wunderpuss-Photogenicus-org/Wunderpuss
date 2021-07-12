@@ -4,7 +4,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '/dist'),
         filename: 'index.bundle.js',
-      },
+    },
     mode: 'development',
     devServer: {
         host: 'localhost',
@@ -13,7 +13,7 @@ module.exports = {
         publicPath: '/',
         headers: { 'Access-Control-Allow-Origin': '*' },
         proxy: {
-            '/login': {
+            '/**': {
                 target: 'http://localhost:3000/',
                 secure: false,
             },
