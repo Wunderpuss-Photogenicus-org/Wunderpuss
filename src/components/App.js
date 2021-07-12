@@ -1,18 +1,21 @@
 import React from 'react';
-import { render } from 'react-dom';
+import Login from './login';
+import CreateAccount from './createAccount';
+import AddBookmark from './add';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { MainPage } from './MainPage.jsx'
 
-class App extends Component {
-    render() {
-        return(
+function App() {
+    return(
             <Router>
                 <Switch>
-                    {/* <Route exact path="/" component={MainPage} />
-                    <Route exact path="/Favorites" component={Favorites} />
-                    <Route exact path="/Featured" component={Featured} /> */}
+                    <Route exact path="/" component={MainPage} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/newAccount" component={CreateAccount} />
+                    <Route exact path="/add" component={AddBookmark} />
                 </Switch>
             </Router>
-        )
-    }
+    )
 }
 
 export default App;
