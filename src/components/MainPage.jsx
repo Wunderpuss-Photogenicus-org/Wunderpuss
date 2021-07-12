@@ -18,13 +18,19 @@ export function MainPage() {
 
   // For now, 
   const [results, setResults] = React.useState(0);
+  const [searchText, setSearchText] = React.useState('');
 
   // Defines event handler for setting results of a search.
   const handleSearch = (event) => {
-    searchBookmarks(event.target.value).then(response => {
+    event.preventDefault();
+    searchBookmarks(searchText).then(response => {
       setResults(response.docs);
     });
   };
+
+  const handleOnChange = (event) => {
+    setSearchText(event.target.value);
+  }
   
   // Creates the results list after a search. The callback defines the
   // structure of a single result table element.
@@ -46,7 +52,16 @@ export function MainPage() {
       </div>
       <Link to="/add">Add a Bookmark</Link>
       <div className="search-input">
-      <input onChange={handleSearch} type="text" placeholder="Search"/>
+      <form onSubmit={handleSearch}>
+                            <input 
+                            name="input"
+                            className="search" 
+                            type="search" 
+                            placeholder="Search" 
+                            //value={this.state.searchTerm} 
+                            onChange={handleOnChange}
+                            />
+      </form>
       </div>
       <h1 className="h1">Bookmarks</h1>
       <div className="books">
