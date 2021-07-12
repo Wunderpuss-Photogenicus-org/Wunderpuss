@@ -5,7 +5,7 @@ export default function AddBookmark() {
     const [websiteLink, setwebsiteLink] = useState('');
     const [websiteName, setwebsiteName] = useState('');
     const [webDes, setwebDes] = useState('');
-    const [picLink, setLastname] = useState('');
+    const [picLink, setpicLink] = useState('');
     const [missingInfo, setmissingInfo] = useState(false);
 
     const handleSubmit = event => {
@@ -13,7 +13,8 @@ export default function AddBookmark() {
         if (!websiteLink || !websiteName || !webDes || !picLink) {
             setmissingInfo(true);
         } else {
-            fetch('http://localhost:3000/add', {
+            console.log("Feel the power of potatoes")
+            fetch('/add', {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -21,29 +22,31 @@ export default function AddBookmark() {
                 },
                 body: JSON.stringify({websiteLink, websiteName, webDes, picLink})
             })
-            .then(data => data.json());
+            .then(data => {
+              console.log(data);
+            })
+          }
             <Redirect to="/" />
         }
-    }
     return(
         <div className="login">
             <h1>Add Bookmark</h1>
             <form onSubmit={handleSubmit}> 
                 <label>
                     <p>Website Link</p>
-                    <input type="text" name="websiteLink" onChange={event => setwebsiteLink(event.target.value)}/>
+                    <input type="text" name="url" onChange={event => setwebsiteLink(event.target.value)}/>
                 </label>
                 <label>
                     <p>Website Name</p>
-                    <input type="text" name="websiteName" onChange={event => setwebsiteName(event.target.value)}/>
+                    <input type="text" name="websitename" onChange={event => setwebsiteName(event.target.value)}/>
                 </label>
                 <label>
                     <p>Website Description</p>
-                    <input type="text" name="webDes" onChange={event => setFwebDes(event.target.value)}/>
+                    <input type="text" name="description" onChange={event => setwebDes(event.target.value)}/>
                 </label>
                 <label>
                     <p>Picture URL</p>
-                    <input type="text" name="picLink" onChange={event => setpicLink(event.target.value)}/>
+                    <input type="text" name="picsrc" onChange={event => setpicLink(event.target.value)}/>
                 </label>
                 <div className="loginButton">
                     <button type="submit" >Add</button>
