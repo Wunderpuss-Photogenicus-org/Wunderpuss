@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Redirect, useHistory} from 'react-router-dom';
-
+import React, { useState } from 'react';
+import {  useHistory } from 'react-router-dom';
 export default function AddBookmark() {
     const [websiteLink, setwebsiteLink] = useState('');
     const [websiteName, setwebsiteName] = useState('');
@@ -8,12 +7,13 @@ export default function AddBookmark() {
     const [picLink, setpicLink] = useState('');
     const [missingInfo, setmissingInfo] = useState(false);
     const history = useHistory(); 
-
     const handleSubmit = event => {
         event.preventDefault();
         if (!websiteLink || !websiteName || !webDes || !picLink) {
+            // checks if any fields are missing 
             setmissingInfo(true);
         } else {
+            // sends websiteLink, websiteName, description, picture link to server 
             fetch('/add', {
                 mode: 'cors',
                 method: 'POST',
@@ -23,8 +23,8 @@ export default function AddBookmark() {
                 body: JSON.stringify({websiteLink, websiteName, webDes, picLink})
             })
             .then(data => {data.json()
+                // redirects to homepage 
                 history.push("/")});
-            // <Redirect to="/" />
         }
     }
     return(
@@ -55,4 +55,3 @@ export default function AddBookmark() {
         </div>
     );
 }
-

@@ -4,7 +4,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '/dist'),
         filename: 'index.bundle.js',
-      },
+    },
     mode: 'development',
     devServer: {
         host: 'localhost',
@@ -13,7 +13,7 @@ module.exports = {
         publicPath: '/',
         headers: { 'Access-Control-Allow-Origin': '*' },
         proxy: {
-            '/login': {
+            '/**': {
                 target: 'http://localhost:3000/',
                 secure: false,
             },
@@ -27,18 +27,19 @@ module.exports = {
             },
         }
     },
-    module:{
-        rules: [
-            { 
-            test: /\.jsx?/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'babel-loader', 
-                options: {
-                    presets: ['@babel/preset-env', '@babel/preset-react']
-                }
-                },
-            },
-        ]
-    } 
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
+      },
+    ],
+  },
 };

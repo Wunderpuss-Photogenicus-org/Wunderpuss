@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function CreateAccount() {
     const [username, setUsername] = useState();
@@ -7,13 +7,16 @@ export default function CreateAccount() {
     const [firstname, setFirstname] = useState();
     const [lastname, setLastname] = useState();
     const [missingInfo, setmissingInfo] = useState(false)
+    const history = useHistory(); 
 
     const handleSubmit = event => {
         event.preventDefault();
         if (!firstname || !lastname || !username || !password) {
+
             setmissingInfo(true);
         } else {
-            fetch('http://localhost:3000/newAccount', {
+             // sends firstname, lastname, username, password to server 
+            fetch('/newAccount', {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -21,8 +24,11 @@ export default function CreateAccount() {
                 },
                 body: JSON.stringify({username, password, firstname, lastname})
             })
-            .then(data => data.json());
-            <Redirect to="/login" />
+            .then(data => {
+                data.json()
+                // redirects to login page
+                history.push("/login")
+            });
         }
     }
     return(
