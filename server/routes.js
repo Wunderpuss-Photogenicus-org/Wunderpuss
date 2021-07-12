@@ -20,13 +20,10 @@ router.post('/newAccount', controllers.createAccount, (req, res)=>{
 router.post('/login', controllers.logging, (req, res)=>{
     res.redirect('/')
 })
-// when user clicks add bookmark button and has successfully added a new bookmark
-router.post('/addBookmark', (req, res) => {
-  // redirect them to bookmark page
-  res.redirect('/bookmarkPage');
-})
 // when user goes to the bookmark page, will display bookmark info from database
-
+// router.get('/bookmarkPage', (req, res) => {
+//   res.status(200).json([])
+// })
 module.exports = router
 
 // controllers.getWebsites
