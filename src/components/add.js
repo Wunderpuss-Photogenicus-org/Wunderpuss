@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink, Redirect, useHistory} from 'react-router-dom';
 
 export default function AddBookmark() {
     const [websiteLink, setwebsiteLink] = useState('');
     const [websiteName, setwebsiteName] = useState('');
     const [webDes, setwebDes] = useState('');
-    const [picLink, setLastname] = useState('');
+    const [picLink, setpicLink] = useState('');
     const [missingInfo, setmissingInfo] = useState(false);
+    const history = useHistory(); 
 
     const handleSubmit = event => {
         event.preventDefault();
         if (!websiteLink || !websiteName || !webDes || !picLink) {
             setmissingInfo(true);
         } else {
-            fetch('http://localhost:3000/add', {
+            fetch('/add', {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -21,8 +22,9 @@ export default function AddBookmark() {
                 },
                 body: JSON.stringify({websiteLink, websiteName, webDes, picLink})
             })
-            .then(data => data.json());
-            <Redirect to="/" />
+            .then(data => {data.json()
+                history.push("/")});
+            // <Redirect to="/" />
         }
     }
     return(
@@ -31,19 +33,19 @@ export default function AddBookmark() {
             <form onSubmit={handleSubmit}> 
                 <label>
                     <p>Website Link</p>
-                    <input type="text" name="websiteLink" onChange={event => setwebsiteLink(event.target.value)}/>
+                    <input type="text" name="url" onChange={event => setwebsiteLink(event.target.value)}/>
                 </label>
                 <label>
                     <p>Website Name</p>
-                    <input type="text" name="websiteName" onChange={event => setwebsiteName(event.target.value)}/>
+                    <input type="text" name="websitename" onChange={event => setwebsiteName(event.target.value)}/>
                 </label>
                 <label>
                     <p>Website Description</p>
-                    <input type="text" name="webDes" onChange={event => setFwebDes(event.target.value)}/>
+                    <input type="text" name="description" onChange={event => setwebDes(event.target.value)}/>
                 </label>
                 <label>
                     <p>Picture URL</p>
-                    <input type="text" name="picLink" onChange={event => setpicLink(event.target.value)}/>
+                    <input type="text" name="picsrc" onChange={event => setpicLink(event.target.value)}/>
                 </label>
                 <div className="loginButton">
                     <button type="submit" >Add</button>

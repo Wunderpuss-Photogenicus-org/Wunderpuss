@@ -4,13 +4,26 @@ import { Link } from "react-router-dom";
 // **Put database logic here.
 // For now, it's pulling from OpenLibrary while testing/building, just have to
 // swap that out for however we're talking to the dB.
-const baseUrl = 'http://openlibrary.org';
+// const baseUrl = 'http://openlibrary.org';
 
 export function searchBookmarks(query) {
-    const url = new URL(baseUrl + '/search.json');
-    url.searchParams.append('title', query);
+    // const url = new URL(baseUrl + '/search.json');
+    // url.searchParams.append('title', query);
 
-    return fetch(url).then(response => response.json());
+  return fetch('/', {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+      },
+    })
+    .then(data => {
+    console.log("data is: ", data)
+    return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 // **Put component render logic here.
@@ -23,9 +36,11 @@ export function MainPage() {
   // Defines event handler for setting results of a search.
   const handleSearch = (event) => {
     event.preventDefault();
-    searchBookmarks(searchText).then(response => {
-      setResults(response.docs);
-    });
+    searchBookmarks(searchText)
+      .then(response => {
+        console.log('Response is: ', response)
+        setResults(response.docs);
+      });
   };
 
   const handleOnChange = (event) => {
