@@ -112,20 +112,6 @@ websitesController.getWebsiteInfo = (req, res, next) => {
 websitesController.logging = (req, res, next) =>{
   
     const {username, password} = req.body
-<<<<<<< HEAD
-    console.log('this is req', req.body);
-    const list = [username, password]
-    const text = 'SELECT * FROM users WHERE username = $1 AND password = $2'
-        db.query(text, list)
-        .then ((data)=>{  
-            console.log('dataaaa',data)
-            if (data.rows[0].username === username && data.rows[0] && data.rows[0].password === password) {
-                // req.session.loggedin = true;
-                // req.session.username = username;
-                // res.redirect('/');
-                // changed to return next() from res.next()
-                return next();
-=======
     const list = [username, password]
     const text = 'SELECT * FROM users WHERE username = $1 AND password =$2 '
         db.query(text, list)
@@ -137,7 +123,6 @@ websitesController.logging = (req, res, next) =>{
                 // req.session.username = username;
                
                  return next();
->>>>>>> da442f854ade030dbd0d642b88ec7f548ebdbaa2
             }        
         }).catch(err=>{
             console.log(err)
@@ -168,17 +153,16 @@ websitesController.getWebsitesLogin = (req, res, next)=>{
 }
 websitesController.addBookmark = (req, res, next)=>{
         //request the body from the input fields
-        console.log(req.app.locals.id)
-        const {websitename, picsrc, url, description,username} = req.body;
-        const list = [websitename, picsrc, url, description, username]
+        console.log("Bookmark INfo:", req.body)
+        const {websitename, picsrc, url, description} = req.body;
+        const list = [websitename, picsrc, url, description]
         //delcare a variable assign it our query string to post data
-        const text = 'INSERT INTO websites (websitename, picsrc, url,description, user_id) values($1, $2, $3, $4, (select id from users where username= $5))'
+        const text = 'INSERT INTO websites (websitename, picsrc, url,description) values($1, $2, $3, $4)'
         //call the db function that takes in the text variable as the first param, req.body as the second param in array form
         db.query(text, list)
          //get the data using a promise
         .then((data)=>{
             console.log(data);
-            res.json(data);
             return next();
             //catch error
         }).catch((err)=>{

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Redirect, useHistory } from 'react-router-dom';
-import CreateAccount from './createAccount';
 
 export default function Login() {
     const [username, setUsername] = useState('');

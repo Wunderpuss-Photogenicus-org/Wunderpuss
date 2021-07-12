@@ -11,13 +11,6 @@ const routes = require('./routes');
  app.use(express.json());
  app.use(express.urlencoded({ extended: true }));
 
-app.use(express.json());
-<<<<<<< HEAD
-// app.use(express.urlencoded({ extended: true }));
-=======
-app.use(express.urlencoded({ extended: true }));
-
->>>>>>> da442f854ade030dbd0d642b88ec7f548ebdbaa2
 //only need app.get route, serving everything on the front end through localhost8080
 
 // serve index.html on the route '/'

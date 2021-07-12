@@ -16,6 +16,11 @@ router.get('/', controllers.getOneWebsite ,(req, res)=>{
 router.post('/newAccount', controllers.createAccount, (req, res)=>{
     res.status(200).json({});
 })
+// router.get('/login', controllers.logging, (req, res)=>{
+//   // res.redirect('/') 
+//   // without .end(), fetch request continues waiting   
+//   res.status(200).end();
+// })
 // when user clicks log in, and has a successful log in, will redirect to home page
 router.post('/login', controllers.logging, (req, res)=>{
     // res.redirect('/') 
@@ -30,7 +35,7 @@ router.get('/home/:users_id',controllers.getOneWebsite, (req, res)=>{
     res.status(200).json([...res.locals.websites])
 })
 router.post('/add', controllers.addBookmark, (req, res)=>{
-    res.status(200).json({});
+    res.status(200).json({}).end();
 })
 
 // when user goes to the bookmark page, will display bookmark info from database
