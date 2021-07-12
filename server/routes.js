@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', controllers.getWebsites, (req, res)=>{
     res.status(200).json([...res.locals.websites])
 })
-router.get('/', controllers.getOneWebsite, (req, res)=>{
+router.get('/search', controllers.getOneWebsite, (req, res)=>{
     res.status(200).json([...res.locals.singleWeb])
 })
 router.post('/newAccount', controllers.createAccount, (req, res)=>{
