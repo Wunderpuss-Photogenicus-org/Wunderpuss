@@ -68,7 +68,7 @@ websitesController.createAccount = (req, res, next) => {
 
 websitesController.getWebsiteInfo = (req, res, next) => {
   // retrieve from table website logo, website name, website url, website description
-  const websiteInfo = 'SELECT * FROM websites LIMIT 1';
+  const websiteInfo = 'SELECT websites.*, comments.cdescription AS comments FROM websites LEFT OUTER JOIN comments ON websites.website_id = comments.website_id LIMIT 1'
   //call the method from models called db.query, inside the method it will take the query str
   db.query(websiteInfo)
     //then get the result
@@ -89,7 +89,6 @@ websitesController.getWebsiteInfo = (req, res, next) => {
 websitesController.logging = (req, res, next) =>{
   
     const {username, password} = req.body
-    console.log('this is req', req.body);
     const list = [username, password]
     const text = 'SELECT * FROM users WHERE username = $1 AND password =$2 '
         db.query(text, list)
@@ -100,7 +99,6 @@ websitesController.logging = (req, res, next) =>{
               console.log('passworddd', data.rows[0].password )
                 // req.session.loggedin = true;
                 // req.session.username = username;
-
               res.status(200).end()
             } else {
               res.status(404).end()
@@ -132,4 +130,22 @@ websitesController.addBookmark = (req, res, next)=>{
         })
 }
 
+websitesController.postComment = (req, res, next) => {
+  const allComments = 'SELECT cdescription FROM comments WHERE website_id=$1';
+  //call the method from models called db.query, inside the method it will take the query str
+  db.query(allComments)
+    //then get the result
+    .then((data) => {
+      res.locals.comments = data.rows;
+      console.log(res.locals.comments);
+      //return next
+      return next();
+      //catch error
+    })
+    .catch((err) => {
+      console.log(err);
+      //return next
+      return next(err);
+    });
+}
 module.exports = websitesController;

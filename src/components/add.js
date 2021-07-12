@@ -15,8 +15,9 @@ export default function AddBookmark() {
             // checks if any fields are missing 
             setmissingInfo(true);
         } else {
-            // sends websiteLink, websiteName, description, picture link to server 
-            fetch('/add', {
+          // sends websiteLink, websiteName, description, picture link to server 
+
+          fetch('/add', {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -28,7 +29,6 @@ export default function AddBookmark() {
                 // redirects to homepage 
                 history.push("/")});
         }
-    }
     return(
         <div className="login">
             <h1>Add Bookmark</h1>
