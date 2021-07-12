@@ -66,9 +66,9 @@ websitesController.createAccount = (req, res, next) => {
 };
 
 
-websitesController.getWebsiteInfo = (req, res, next) => {
+websitesController.getWebsiteInfoAfterAdd = (req, res, next) => {
   // retrieve from table website logo, website name, website url, website description
-  const websiteInfo = 'SELECT websites.*, comments.cdescription AS comments FROM websites LEFT OUTER JOIN comments ON websites.website_id = comments.website_id LIMIT 1'
+  const websiteInfo = 'SELECT websites.*, comments.cdescription AS comments FROM websites LEFT OUTER JOIN comments ON websites.website_id = comments.website_id ORDER BY website_id DESC LIMIT 1'
   //call the method from models called db.query, inside the method it will take the query str
   db.query(websiteInfo)
     //then get the result
@@ -84,7 +84,26 @@ websitesController.getWebsiteInfo = (req, res, next) => {
       //return next
       return next(err);
     });
-  
+}
+
+websitesController.getWebsiteInfoAfterClick = (req, res, next) => {
+  const {websitename} = req.body;
+  // retrieve from table website logo, website name, website url, website description
+  const websiteInfo = 'SELECT websites.*, comments.cdescription AS comments FROM websites LEFT OUTER JOIN comments ON websites.website_id = comments.website_id WHERE websitename = $1'
+  db.query(websiteInfo, [websitename])
+  //then get the result
+  .then((data) => {
+    console.log();
+    res.locals.websites = data.rows;
+    //return next
+    return next();
+    //catch error
+  })
+  .catch((err) => {
+    console.log(err);
+    //return next
+    return next(err);
+  });
 }
 websitesController.logging = (req, res, next) =>{
   
@@ -132,12 +151,12 @@ websitesController.addBookmark = (req, res, next)=>{
 
 websitesController.postComment = (req, res, next) => {
   //request the body from the input fields
-  const {comment} = req.body;
-  const postedComment = [comment]
+  const {comment, user_id, websitename} = req.body;
+  const postedComment = [comment, user_id, websitename]
   //delcare a variable assign it our query string to post data
-  const addedComment = 'INSERT INTO comments (cdescription) WHERE website_id = $1';
+  const addedComment = 'insert into comments (cdescription, user_id, website_id) values ($1, $2,( select website_id from websites where websitename=$3))';
 
-  dq.query(addedComment, postedComment)
+  db.query(addedComment, postedComment)
   // then get the data using a promise
   .then((data) => {
     console.log(data);
@@ -146,6 +165,24 @@ websitesController.postComment = (req, res, next) => {
     console.log(err);
     return next(error);
   })
-
+}
+websitesController.getNewestComment = (req, res, next) => {
+  // retrieve from table website logo, website name, website url, website description
+  const websiteInfo = 'SELECT comments.cdescription FROM comments LEFT OUTER JOIN comments ON websites.website_id = comments.website_id ORDER BY website_id DESC LIMIT 1'
+  //call the method from models called db.query, inside the method it will take the query str
+  db.query(websiteInfo)
+    //then get the result
+    .then((data) => {
+      console.log();
+      res.locals.websites = data.rows;
+      //return next
+      return next();
+      //catch error
+    })
+    .catch((err) => {
+      console.log(err);
+      //return next
+      return next(err);
+    });
 }
 module.exports = websitesController;

@@ -5,7 +5,7 @@ const controllers = require('./controllers');
 const router = express.Router();
 
 //  when page is loaded display all the websites
-router.get('/', controllers.getWebsites, (req, res) => {
+router.get('/h', controllers.getWebsites, (req, res) => {
     res.status(200).json([...res.locals.websites])
 })
 router.get('/search', controllers.getOneWebsite, (req, res)=>{
@@ -39,14 +39,18 @@ router.post('/add', controllers.addBookmark, (req, res)=>{
     res.status(200).json({}).end();
 })
 
-// when user goes to the bookmark page, will display bookmark info from database
-router.get('/bookmarkPage', controllers.getWebsiteInfo, (req, res) => {
+// when user goes to the bookmark page after add, will display bookmark info from database
+router.get('/bookmarkPageAfterAdd', controllers.getWebsiteInfoAfterAdd, (req, res) => {
   res.status(200).json(res.locals.websites)
 })
-// when user tries to post a comment on the bookmarks page, should add comments to the comments table and display it
-router.post('/addComment', controllers.postComment, (req, res) => {
-  res.status(200).json(res.locals.comments)
+router.get('/bookmarkPageAfterClick', controllers.getWebsiteInfoAfterClick, (req, res) => {
+  res.status(200).json(res.locals.websites);
 })
+// when user tries to post a comment on the bookmarks page, should add comments to the comments table and display it
+router.post('/addComment', controllers.postComment, controllers.getNewestComment, (req, res) => {
+  res.status(200).json();
+})
+
 
 module.exports = router
 
