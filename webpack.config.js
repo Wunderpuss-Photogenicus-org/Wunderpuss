@@ -19,18 +19,18 @@ module.exports = {
             },
         }
     },
-    module:{
+    module: {
         rules: [
-            { 
-            test: /\.jsx?/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'babel-loader', 
+            {
+                test: /\.jsx?/,
+                exclude: /node_modules/,
+                use: {
+                loader: 'babel-loader',
                 options: {
-                    presets: ['@babel/preset-env', '@babel/preset-react']
-                }
+                    presets: ['@babel/preset-env', '@babel/preset-react'],
                 },
-            },
+                },
+            }
         ]
-    } 
+    }
 };

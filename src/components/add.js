@@ -8,7 +8,6 @@ export default function AddBookmark() {
     const [picLink, setpicLink] = useState('');
     const [missingInfo, setmissingInfo] = useState(false);
     const history = useHistory(); 
-
     const handleSubmit = event => {
         event.preventDefault();
         if (!websiteLink || !websiteName || !webDes || !picLink) {
@@ -57,4 +56,3 @@ export default function AddBookmark() {
         </div>
     );
 }
-
