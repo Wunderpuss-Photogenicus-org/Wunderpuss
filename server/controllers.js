@@ -64,6 +64,7 @@ websitesController.createAccount = (req, res, next)=>{
 }
 websitesController.logging = (req, res, next) =>{
     const {username, password} = req.body
+    console.log('res.localss', {...res.locals});
     const list = [username, password]
     const text = 'SELECT * FROM users WHERE username = $1 AND password = '
         db.query(text, list)
