@@ -18,8 +18,19 @@ router.post('/newAccount', controllers.createAccount, (req, res)=>{
 })
 // when user clicks log in, and has a successful log in, will redirect to home page
 router.post('/login', controllers.logging, (req, res)=>{
-    res.redirect('/')
+    res.status(200).end();
 })
+
+router.get('/home/:users_id',controllers.getWebsitesLogin, (req, res)=>{
+    res.status(200).json([...res.locals.websites])
+})
+router.get('/home/:users_id',controllers.getOneWebsite, (req, res)=>{
+    res.status(200).json([...res.locals.websites])
+})
+router.post('/add', controllers.addBookmark, (req, res)=>{
+    res.status(200).json({});
+})
+
 // when user goes to the bookmark page, will display bookmark info from database
 router.get('/bookmarkPage', controllers.getWebsiteInfo, (req, res) => {
   res.status(200).json(res.locals.websites)
@@ -30,3 +41,4 @@ module.exports = router
 // controllers.getOneWebsite
 // controllers.createAccount
 // controllers.logging
+
