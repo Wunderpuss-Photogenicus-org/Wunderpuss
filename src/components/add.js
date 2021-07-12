@@ -8,16 +8,20 @@ export default function AddBookmark() {
     const [picLink, setpicLink] = useState('');
     const [missingInfo, setmissingInfo] = useState(false);
     const history = useHistory(); 
-
     const handleSubmit = event => {
         event.preventDefault();
         if (!websiteLink || !websiteName || !webDes || !picLink) {
             // checks if any fields are missing 
             setmissingInfo(true);
         } else {
+<<<<<<< HEAD
+            // sends websiteLink, websiteName, description, picture link to server 
+            fetch('/add', {
+=======
           // sends websiteLink, websiteName, description, picture link to server 
 
           fetch('/add', {
+>>>>>>> dev
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -29,6 +33,7 @@ export default function AddBookmark() {
                 // redirects to homepage 
                 history.push("/")});
         }
+    }
     return(
         <div className="login">
             <h1>Add Bookmark</h1>
@@ -57,4 +62,3 @@ export default function AddBookmark() {
         </div>
     );
 }
-
