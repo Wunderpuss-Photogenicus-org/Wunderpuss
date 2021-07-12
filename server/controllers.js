@@ -90,7 +90,7 @@ websitesController.logging = (req, res, next) => {
 
 websitesController.getWebsiteInfo = (req, res, next) => {
   // retrieve from table website logo, website name, website url, website description
-  const websiteInfo = 'SELECT * FROM websites LIMIT 1';
+  const websiteInfo = 'SELECT websites.*, comments.cdescription AS comments FROM websites LEFT OUTER JOIN comments ON websites.website_id = comments.website_id LIMIT 1'
   //call the method from models called db.query, inside the method it will take the query str
   db.query(websiteInfo)
     //then get the result
@@ -109,4 +109,22 @@ websitesController.getWebsiteInfo = (req, res, next) => {
   
 }
 
+// websitesController.getCommentsList = (req, res, next) => {
+//   const allComments = 'SELECT cdescription FROM comments WHERE website_id=$1';
+//   //call the method from models called db.query, inside the method it will take the query str
+//   db.query(allComments)
+//     //then get the result
+//     .then((data) => {
+//       res.locals.comments = data.rows;
+//       console.log(res.locals.comments);
+//       //return next
+//       return next();
+//       //catch error
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       //return next
+//       return next(err);
+//     });
+// }
 module.exports = websitesController;

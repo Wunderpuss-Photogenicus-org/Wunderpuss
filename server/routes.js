@@ -20,10 +20,15 @@ router.post('/newAccount', controllers.createAccount, (req, res)=>{
 router.post('/login', controllers.logging, (req, res)=>{
     res.redirect('/')
 })
-// when user goes to the bookmark page, will display bookmark info from database
+// when user goes to the bookmark page, will display the most recent entry from database(the one user just created)
 router.get('/bookmarkPage', controllers.getWebsiteInfo, (req, res) => {
   res.status(200).json(res.locals.websites)
 })
+// // when user goes to the bookmark page, will display all comments info from database in relation to the website id
+// router.get('/bookmarkPage', controllers.getCommentsList, (req, res) => {
+//   res.status(200).json(res.locals.comments)
+// })
+
 module.exports = router
 
 // controllers.getWebsites
