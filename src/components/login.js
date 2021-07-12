@@ -1,25 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import CreateAccount from './createAccount';
 
 export default function Login() {
-    const [username, setUserName] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [missingInfo, setmissingInfo] = useState(false)
+
+    const history = useHistory(); 
 
     const handleSubmit = event => {
         event.preventDefault();
-        
-        fetch('http://localhost:3000/login', {
+        const frontBody = {username, password};
+        if (!username || !password) {
+            setmissingInfo(true);
+        } else {
+            console.log('body', JSON.stringify({"username": username, "password":password}));
+            fetch('/login', {
                 method: 'POST',
+                mode: 'cors', 
                 headers: {
-                    'Content-Type': 'application/json'
+                'Content-Type': 'application/json'              
                 },
-                body: JSON.stringify({username, password})
+                body: JSON.stringify(frontBody)
             })
-            .then(data => console.log(data));
-            return <Redirect to="/home" />
-        
+            // .then(resp => resp.json())
+            .then(data => {
+                console.log("data", data)
+                history.push("/")
+            })
+            .catch(err => console.log('this is err', err));
+            // return <Redirect to="/home" />
+        }
     }
     return(
         <div className="login">
@@ -27,11 +39,11 @@ export default function Login() {
             <form onSubmit={handleSubmit}> 
                 <label>
                     <p>Username</p>
-                    <input type="text" onChange={event => setUserName(event.target.value)}/>
+                    <input type="text" name="username" onChange={event => setUsername(event.target.value)}/>
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type="password" onChange={event => setPassword(event.target.value)}/>
+                    <input type="password" name="password" onChange={event => setPassword(event.target.value)}/>
                 </label>
                 <div className="loginButton">
                     <button type="submit">Login</button>
