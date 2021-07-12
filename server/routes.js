@@ -21,16 +21,18 @@ router.post('/newAccount', controllers.createAccount, (req, res)=>{
 //   res.status(200).end();
 // })
 // when user clicks log in, and has a successful log in, will redirect to home page
-router.post('/login', controllers.logging, (req, res)=>{
+router.post('/login', controllers.logging
+// (req, res)=>{
     // res.redirect('/') 
     // without .end(), fetch request continues waiting   
-    res.status(200).end();
-})
+    // res.status(200).end();
+// }
+)
 
-router.get('/home/:users_id',controllers.getWebsitesLogin, (req, res)=>{
+router.get('/home/',controllers.getWebsites, (req, res)=>{
     res.status(200).json([...res.locals.websites])
 })
-router.get('/home/:users_id',controllers.getOneWebsite, (req, res)=>{
+router.get('/home/',controllers.getOneWebsite, (req, res)=>{
     res.status(200).json([...res.locals.websites])
 })
 router.post('/add', controllers.addBookmark, (req, res)=>{
