@@ -5,6 +5,8 @@ const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: 'postgres://kdfatmjp:IELE5wKWUNrBqy78nEBfgnnSmqbth8zs@batyr.db.elephantsql.com/kdfatmjp'
 });
+
+
 //exporting the pool query
 module.exports = {
     query: (text, params, callback) => {
