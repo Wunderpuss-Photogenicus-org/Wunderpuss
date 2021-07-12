@@ -24,11 +24,12 @@ websitesController.getWebsites = (req, res, next) => {
 };
 websitesController.getOneWebsite = (req, res, next) => {
   //request the input from the input field's body
-  const { input } = req.body;
+  const { searchText } = req.query;
+  console.log('! ', req)
   //declare a variable assgin it our query string
   const text = 'SELECT * FROM websites WHERE websitename = $1';
   //call the method from models called db.query, inside the method it will take the query str
-  db.query(text, [input])
+  db.query(text, [searchText])
     //then get the result
     .then((data) => {
       res.locals.singleWeb = data.rows;

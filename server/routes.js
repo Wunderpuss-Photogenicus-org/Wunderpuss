@@ -5,7 +5,7 @@ const controllers = require('./controllers');
 const router = express.Router();
 
 //  when page is loaded display all the websites
-router.get('/', controllers.getWebsites, (req, res) => {
+router.get('/h', controllers.getWebsites, (req, res) => {
     res.status(200).json([...res.locals.websites])
 })
 router.get('/search', controllers.getOneWebsite, (req, res)=>{
