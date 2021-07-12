@@ -21,9 +21,9 @@ router.post('/login', controllers.logging, (req, res)=>{
     res.redirect('/')
 })
 // when user goes to the bookmark page, will display bookmark info from database
-// router.get('/bookmarkPage', (req, res) => {
-//   res.status(200).json([])
-// })
+router.get('/bookmarkPage', controllers.getWebsiteInfo, (req, res) => {
+  res.status(200).json(res.locals.websites)
+})
 module.exports = router
 
 // controllers.getWebsites

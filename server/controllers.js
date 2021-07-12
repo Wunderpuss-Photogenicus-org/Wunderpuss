@@ -88,8 +88,24 @@ websitesController.logging = (req, res, next) => {
 };
 
 
-// websitesController.getWebsiteInfo = (req, res, next) => {
-//   // retrieve from table website logo, website name, website url, website description
-//   const websiteInfo = 'SELECT * FROM websites WHERE websitename = $1';
-// }
+websitesController.getWebsiteInfo = (req, res, next) => {
+  // retrieve from table website logo, website name, website url, website description
+  const websiteInfo = 'SELECT * FROM websites LIMIT 1';
+  //call the method from models called db.query, inside the method it will take the query str
+  db.query(websiteInfo)
+    //then get the result
+    .then((data) => {
+      console.log();
+      res.locals.websites = data.rows;
+      //return next
+      return next();
+      //catch error
+    })
+    .catch((err) => {
+      console.log(err);
+      //return next
+      return next(err);
+    });
+  
+}
 module.exports = websitesController;
