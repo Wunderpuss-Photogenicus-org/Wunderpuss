@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+body {
+  background-color: rgb(43,43,43);
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+.link-button {
+ padding: 10px 16px;
+ margin: 0px 10px 10px 10px;
+ background-color: rgb(255, 191, 15);
+}
+
+.search-input {
+  grid-area-name: "searchbar";
+}
+
+#header {
+  display: flex;
+  justify-content: center;
+}
+
+
+#main-content {
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-rows: 0.1fr 0.7fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      ". searchbar ."
+      ". books ."; 
+  }
+  .searchbar { grid-area: searchbar; }
+  .books { grid-area: books; }

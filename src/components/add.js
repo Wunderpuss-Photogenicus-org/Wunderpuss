@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
 export default function AddBookmark() {
     const [websiteLink, setwebsiteLink] = useState('');
     const [websiteName, setwebsiteName] = useState('');
@@ -14,7 +15,6 @@ export default function AddBookmark() {
             setmissingInfo(true);
         } else {
           // sends websiteLink, websiteName, description, picture link to server 
-
           fetch('/add', {
                 mode: 'cors',
                 method: 'POST',
@@ -56,3 +56,4 @@ export default function AddBookmark() {
     </div>
   );
 }
+
