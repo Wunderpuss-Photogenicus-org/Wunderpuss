@@ -64,8 +64,6 @@ websitesController.createAccount = (req, res, next) => {
       return next(err);
     });
 };
-
-
 websitesController.getWebsiteInfo = (req, res, next) => {
   // retrieve from table website logo, website name, website url, website description
   const websiteInfo = 'SELECT websites.*, comments.cdescription AS comments FROM websites LEFT OUTER JOIN comments ON websites.website_id = comments.website_id LIMIT 1'
@@ -84,10 +82,8 @@ websitesController.getWebsiteInfo = (req, res, next) => {
       //return next
       return next(err);
     });
-  
 }
 websitesController.logging = (req, res, next) =>{
-  
     const {username, password} = req.body
     const list = [username, password]
     const text = 'SELECT * FROM users WHERE username = $1 AND password =$2 '
@@ -107,12 +103,10 @@ websitesController.logging = (req, res, next) =>{
             console.log(err)
             return next()
         })
-    
 }
-
 websitesController.addBookmark = (req, res, next)=>{
   //request the body from the input fields
-  
+  console.log(req.app.locals.id)
   const {websitename, picsrc, url, description,username} = req.body;
   const list = [websitename, picsrc, url, description, username]
   //delcare a variable assign it our query string to post data
@@ -130,8 +124,6 @@ websitesController.addBookmark = (req, res, next)=>{
       return next(err)
   })
 }
-
-
 websitesController.postComment = (req, res, next) => {
   const allComments = 'SELECT cdescription FROM comments WHERE website_id=$1';
   //call the method from models called db.query, inside the method it will take the query str
@@ -150,4 +142,5 @@ websitesController.postComment = (req, res, next) => {
       return next(err);
     });
 }
+
 module.exports = websitesController;

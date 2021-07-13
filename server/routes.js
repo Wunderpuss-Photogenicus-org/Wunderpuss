@@ -5,7 +5,7 @@ const controllers = require('./controllers');
 const router = express.Router();
 
 //  when page is loaded display all the websites
-router.get('/', controllers.getWebsites, (req, res) => {
+router.get('/h', controllers.getWebsites, (req, res) => {
     res.status(200).json([...res.locals.websites])
 })
 router.get('/search', controllers.getOneWebsite, (req, res)=>{
@@ -44,9 +44,9 @@ router.get('/bookmarkPage', controllers.getWebsiteInfo, (req, res) => {
   res.status(200).json(res.locals.websites)
 })
 // when user tries to post a comment on the bookmarks page, should add comments to the comments table and display it
-router.post('/addComment', controllers.postComment, (req, res) => {
-  res.status(200).json(res.locals.comments)
-})
+// router.post('/addComment', controllers.postComment, (req, res) => {
+//   res.status(200).json(res.locals.comments)
+// })
 
 module.exports = router
 
