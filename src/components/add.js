@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import {  useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
 export default function AddBookmark() {
     const [websiteLink, setwebsiteLink] = useState('');
     const [websiteName, setwebsiteName] = useState('');
@@ -13,9 +14,8 @@ export default function AddBookmark() {
             // checks if any fields are missing 
             setmissingInfo(true);
         } else {
-            // sends websiteLink, websiteName, description, picture link to server 
-            fetch('/add', {
           // sends websiteLink, websiteName, description, picture link to server 
+          fetch('/add', {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -53,6 +53,7 @@ export default function AddBookmark() {
                 </div>
                 {missingInfo ? <div>Please fill in all fields</div>:null}
             </form>
-        </div>
-    );
+    </div>
+  );
 }
+

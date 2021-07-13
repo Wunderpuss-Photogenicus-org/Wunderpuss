@@ -65,7 +65,6 @@ websitesController.createAccount = (req, res, next) => {
     });
 };
 
-
 websitesController.getWebsiteInfoAfterAdd = (req, res, next) => {
   // retrieve from table website logo, website name, website url, website description
   const websiteInfo = 'SELECT websites.*, comments.cdescription AS comments FROM websites LEFT OUTER JOIN comments ON websites.website_id = comments.website_id ORDER BY website_id DESC LIMIT 1'
