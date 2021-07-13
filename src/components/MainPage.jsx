@@ -48,7 +48,7 @@ export function MainPage() {
   },[]);
   // Creates the results list after a search. The callback defines the
   // structure of a single result table element.
-  const resultList = (results || []).map((book) =>
+  const resultList = (results.reverse() || []).map((book) =>
     <tr key={book.website_id}>
       <td>
         <h2>{book.websitename}</h2>
