@@ -33,6 +33,7 @@ export function MainPage() {
   const handleOnChange = (event) => {
     setSearchText(event.target.value);
   }
+  
   const getAPI = () => {
     fetch('/h')
       .then(res => res.json())
@@ -40,6 +41,7 @@ export function MainPage() {
       setResults(data)})
     .catch(err => console.log('this is err', err))
   }
+
   useEffect(() => {
     return getAPI();
   },[]);
