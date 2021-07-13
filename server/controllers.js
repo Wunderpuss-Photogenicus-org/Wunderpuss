@@ -106,7 +106,6 @@ websitesController.getWebsiteInfoAfterClick = (req, res, next) => {
   });
 }
 websitesController.logging = (req, res, next) =>{
-  
     const {username, password} = req.body
     const list = [username, password]
     const text = 'SELECT * FROM users WHERE username = $1 AND password =$2 '
@@ -126,29 +125,27 @@ websitesController.logging = (req, res, next) =>{
             console.log(err)
             return next()
         })
-    
 }
-
 websitesController.addBookmark = (req, res, next)=>{
-        //request the body from the input fields
-        console.log('req bdodd', req.body);
-        const {websiteLink, websiteName, webDes, picLink} = req.body;
-        const list = [websiteName, picLink, websiteLink, webDes]
-        //delcare a variable assign it our query string to post data
-        const text = 'INSERT INTO websites (websitename, picsrc, url, description) VALUES($1, $2, $3, $4)'
-        //call the db function that takes in the text variable as the first param, req.body as the second param in array form
-        db.query(text, list)
-         //get the data using a promise
-        .then((data)=>{
-            console.log(data);
-            return next();
-            //catch error
-        }).catch((err)=>{
-            console.log(err)
-            return next(err)
-        })
+  //request the body from the input fields
+  console.log(req.app.locals.id)
+  const {websitename, picsrc, url, description,username} = req.body;
+  const list = [websitename, picsrc, url, description, username]
+  //delcare a variable assign it our query string to post data
+  const text = 'INSERT INTO websites (websitename, picsrc, url,description, user_id) values($1, $2, $3, $4, (select id from users where username= $5))'
+  //call the db function that takes in the text variable as the first param, req.body as the second param in array form
+  db.query(text, list)
+   //get the data using a promise
+  .then((data)=>{
+      console.log(data);
+      res.json(data);
+      return next();
+      //catch error
+  }).catch((err)=>{
+      console.log(err)
+      return next(err)
+  })
 }
-
 websitesController.postComment = (req, res, next) => {
   //request the body from the input fields
   const {comment, user_id, websitename} = req.body;
@@ -185,4 +182,5 @@ websitesController.getNewestComment = (req, res, next) => {
       return next(err);
     });
 }
+
 module.exports = websitesController;

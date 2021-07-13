@@ -35,6 +35,7 @@ export function MainPage() {
   const handleOnChange = (event) => {
     setSearchText(event.target.value);
   }
+  
   const getAPI = () => {
     fetch('/h')
       .then(res => res.json())
