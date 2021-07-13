@@ -29,6 +29,7 @@ export default function AddBookmark() {
                 // redirects to homepage 
                 history.push("/")});
         }
+    }
     return(
         <div className="login">
             <h1>Add Bookmark</h1>
