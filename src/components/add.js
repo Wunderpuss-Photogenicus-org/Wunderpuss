@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import {  useHistory } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
 export default function AddBookmark() {
     const [websiteLink, setwebsiteLink] = useState('');
     const [websiteName, setwebsiteName] = useState('');
@@ -54,6 +53,6 @@ export default function AddBookmark() {
                 </div>
                 {missingInfo ? <div>Please fill in all fields</div>:null}
             </form>
-        </div>
-    );
+    </div>
+  );
 }
